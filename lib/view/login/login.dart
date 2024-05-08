@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_app_atma_kitchen/database/user_client.dart';
+import 'package:mobile_app_atma_kitchen/entity/customer.dart';
+import 'package:mobile_app_atma_kitchen/entity/mo.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/home.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -16,6 +19,7 @@ class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
 
   bool passwordInvisible = true;
   @override
@@ -197,18 +201,35 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                       onPressed: () async {
+                        final scaffoldMessenger = ScaffoldMessenger.of(context);
                         void navPush(MaterialPageRoute route) {
                           Navigator.pushReplacement(context, route);
                         }
 
                         if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            isLoading = true;
+                          });
                           try {
                             String responseLogin = await UserClient.login(
                                 usernameController.text,
                                 passwordController.text);
 
+                            // todo add entity to store user data according to is the user is Admin/MO/Owner or Customer
+
                             if (jsonDecode(responseLogin)["role"] == "MO") {
                               // user yang login adalah MO
+                              MO managerOperasional = MO
+                                  .fromJson(jsonDecode(responseLogin)["data"]);
+
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString(
+                                  'id_karyawan',
+                                  managerOperasional.idKaryawan
+                                      .toString()); // sementara placeholder
+                              prefs.setString('role', 'MO');
+
                               navPush(
                                 MaterialPageRoute(
                                     builder: (_) => const MOView()),
@@ -216,13 +237,37 @@ class _LoginViewState extends State<LoginView> {
                             } else if (jsonDecode(responseLogin)["role"] ==
                                 "Customer") {
                               // user yang login adalah Customer
+                              Customer customer = Customer.fromJson(
+                                  jsonDecode(responseLogin)["data"]);
+
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString(
+                                  'id_customer',
+                                  customer.idCustomer
+                                      .toString()); // sementara placeholder
+                              prefs.setString('role', 'Customer');
+
                               navPush(
                                 MaterialPageRoute(
                                     builder: (_) => const HomeView()),
                               );
                             }
+
+                            scaffoldMessenger.showSnackBar(
+                              const SnackBar(
+                                content: Text('Berhasil Login!'),
+                                duration: Duration(seconds: 5),
+                              ),
+                            );
                           } catch (e) {
-                            print(e.toString());
+                            // print(e.toString());
+                            scaffoldMessenger.showSnackBar(
+                              const SnackBar(
+                                content: Text('Gagal Login!'),
+                                duration: Duration(seconds: 5),
+                              ),
+                            );
                           }
                         }
 
@@ -233,10 +278,14 @@ class _LoginViewState extends State<LoginView> {
                         //   ),
                         // );
                       },
-                      child: const Text(
-                        'Log in',
-                        style: TextStyle(fontSize: 18),
-                      ),
+                      child: isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : const Text(
+                              'Log in',
+                              style: TextStyle(fontSize: 18),
+                            ),
                     ),
                   ),
                 ),
