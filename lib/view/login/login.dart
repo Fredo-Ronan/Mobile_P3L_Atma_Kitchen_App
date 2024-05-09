@@ -7,6 +7,7 @@ import 'package:mobile_app_atma_kitchen/entity/mo.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/home.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -20,6 +21,12 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
+
+  Future<void> openUrl(url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Gagal Open Browser');
+    }
+  }
 
   bool passwordInvisible = true;
   @override
@@ -298,7 +305,10 @@ class _LoginViewState extends State<LoginView> {
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      openUrl(Uri.parse(
+                          'https://p3-l-atma-kitchen-app.vercel.app/sign-up'));
+                    },
                     child: const Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
