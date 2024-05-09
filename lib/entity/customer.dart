@@ -17,6 +17,7 @@ class Customer {
   // menerima JSON dari API yang nanti diconvert jadi object Customer
   factory Customer.fromRawJson(String str) =>
       Customer.fromJson(json.decode(str));
+
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
         idCustomer: json["id_customer"],
         namaCustomer: json["nama_customer"],
@@ -29,6 +30,7 @@ class Customer {
 
   // membuat json dari object Customer untuk dikirim melalui API
   String toRawJson() => json.encode(toJson());
+  
   Map<String, dynamic> toJson() => {
     "id_customer": idCustomer,
     "nama_customer": namaCustomer,

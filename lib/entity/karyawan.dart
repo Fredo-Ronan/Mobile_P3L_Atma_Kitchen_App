@@ -13,6 +13,7 @@ class Karyawan {
       this.role});
 
   factory Karyawan.fromRawJson(String str) => Karyawan.fromJson(json.decode(str));
+  
   factory Karyawan.fromJson(Map<String, dynamic> json) => Karyawan(
       idKaryawan: json["id_karyawan"],
       namaKaryawan: json["nama_karyawan"],

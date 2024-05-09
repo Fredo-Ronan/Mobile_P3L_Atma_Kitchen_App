@@ -5,6 +5,7 @@ import 'package:mobile_app_atma_kitchen/database/user_client.dart';
 import 'package:mobile_app_atma_kitchen/entity/customer.dart';
 import 'package:mobile_app_atma_kitchen/entity/karyawan.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/home.dart';
+import 'package:mobile_app_atma_kitchen/view/lupaPassword.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -191,10 +192,30 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
 
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, right: 10),
+                    child: TextButton(
+                      child: const Text(
+                        "Lupa Password?",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ForgetPassword()));
+                      },
+                    ),
+                  ),
+                ),
+
                 //Login button
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 100,
+                    top: 20,
                   ),
                   child: SizedBox(
                     height: 50,
@@ -227,8 +248,8 @@ class _LoginViewState extends State<LoginView> {
                             if (jsonDecode(responseLogin)["role"] == "MO" &&
                                 jsonDecode(responseLogin)["status"] == "OK") {
                               // user yang login adalah MO
-                              Karyawan managerOperasional = Karyawan
-                                  .fromJson(jsonDecode(responseLogin)["data"]);
+                              Karyawan managerOperasional = Karyawan.fromJson(
+                                  jsonDecode(responseLogin)["data"]);
 
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
