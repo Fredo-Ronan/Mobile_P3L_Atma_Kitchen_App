@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mobile_app_atma_kitchen/database/user_client.dart';
 import 'package:mobile_app_atma_kitchen/entity/customer.dart';
-import 'package:mobile_app_atma_kitchen/entity/mo.dart';
+import 'package:mobile_app_atma_kitchen/entity/karyawan.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/home.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -224,9 +224,10 @@ class _LoginViewState extends State<LoginView> {
 
                             // todo add entity to store user data according to is the user is Admin/MO/Owner or Customer
 
-                            if (jsonDecode(responseLogin)["role"] == "MO") {
+                            if (jsonDecode(responseLogin)["role"] == "MO" &&
+                                jsonDecode(responseLogin)["status"] == "OK") {
                               // user yang login adalah MO
-                              MO managerOperasional = MO
+                              Karyawan managerOperasional = Karyawan
                                   .fromJson(jsonDecode(responseLogin)["data"]);
 
                               SharedPreferences prefs =
@@ -241,8 +242,16 @@ class _LoginViewState extends State<LoginView> {
                                 MaterialPageRoute(
                                     builder: (_) => const MOView()),
                               );
+
+                              scaffoldMessenger.showSnackBar(
+                                const SnackBar(
+                                  content: Text('Berhasil Login!'),
+                                  duration: Duration(seconds: 5),
+                                ),
+                              );
                             } else if (jsonDecode(responseLogin)["role"] ==
-                                "Customer") {
+                                    "Customer" &&
+                                jsonDecode(responseLogin)["status"] == "OK") {
                               // user yang login adalah Customer
                               Customer customer = Customer.fromJson(
                                   jsonDecode(responseLogin)["data"]);
@@ -259,14 +268,39 @@ class _LoginViewState extends State<LoginView> {
                                 MaterialPageRoute(
                                     builder: (_) => const HomeView()),
                               );
-                            }
 
-                            scaffoldMessenger.showSnackBar(
-                              const SnackBar(
-                                content: Text('Berhasil Login!'),
-                                duration: Duration(seconds: 5),
-                              ),
-                            );
+                              scaffoldMessenger.showSnackBar(
+                                const SnackBar(
+                                  content: Text('Berhasil Login!'),
+                                  duration: Duration(seconds: 5),
+                                ),
+                              );
+                            } else if (jsonDecode(responseLogin)["status"] ==
+                                "NOT OK") {
+                              // username atau password salah
+                              setState(() {
+                                isLoading = false;
+                              });
+                              scaffoldMessenger.showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text('Username atau Password salah!'),
+                                  duration: Duration(seconds: 5),
+                                ),
+                              );
+                            } else if (jsonDecode(responseLogin)["status"] ==
+                                "NOT VERIFIED") {
+                              // email belum diverifikasi
+                              setState(() {
+                                isLoading = false;
+                              });
+                              scaffoldMessenger.showSnackBar(
+                                const SnackBar(
+                                  content: Text('Belum Verifikasi Email!'),
+                                  duration: Duration(seconds: 5),
+                                ),
+                              );
+                            }
                           } catch (e) {
                             // print(e.toString());
                             scaffoldMessenger.showSnackBar(

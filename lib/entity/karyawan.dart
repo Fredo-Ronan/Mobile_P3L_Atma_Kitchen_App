@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-class MO {
+class Karyawan {
   int? idKaryawan;
   String? namaKaryawan, emailKaryawan, alamatKaryawan, telpKaryawan, role;
 
-  MO(
+  Karyawan(
       {this.idKaryawan,
       this.namaKaryawan,
       this.emailKaryawan,
@@ -12,8 +12,8 @@ class MO {
       this.telpKaryawan,
       this.role});
 
-  factory MO.fromRawJson(String str) => MO.fromJson(json.decode(str));
-  factory MO.fromJson(Map<String, dynamic> json) => MO(
+  factory Karyawan.fromRawJson(String str) => Karyawan.fromJson(json.decode(str));
+  factory Karyawan.fromJson(Map<String, dynamic> json) => Karyawan(
       idKaryawan: json["id_karyawan"],
       namaKaryawan: json["nama_karyawan"],
       emailKaryawan: json["email_karyawan"],
