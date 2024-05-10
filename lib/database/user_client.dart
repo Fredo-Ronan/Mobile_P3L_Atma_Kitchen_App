@@ -39,12 +39,12 @@ class UserClient {
   }
 
   static Future<Map<String, dynamic>> updateToken(
-      String token, int id_customer) async {
+      String token, int idCustomer) async {
     try {
       var respons = await http.post(
           Uri.https(url, '$endpoint/customer/auth/insertResetToken'),
           headers: {"Content-Type": "application/json"},
-          body: jsonEncode({"token": token, "id_customer": id_customer}));
+          body: jsonEncode({"token": token, "id_customer": idCustomer}));
 
       return jsonDecode(respons.body);
     } catch (e) {
@@ -53,13 +53,13 @@ class UserClient {
   }
 
   static Future<Map<String, dynamic>> sendEmailResetPasword(
-      String email, String url_reset_password) async {
+      String email, String urlResetPassword) async {
     try {
       var response = await http.post(
           Uri.https(url, '$endpoint/customer/auth/sendEmailResetPass'),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(
-              {"email": email, "url_reset_password": url_reset_password}));
+              {"email": email, "url_reset_password": urlResetPassword}));
 
       return jsonDecode(response.body);
     } catch (e) {
