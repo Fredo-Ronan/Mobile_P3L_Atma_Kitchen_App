@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/home.dart';
 import 'package:mobile_app_atma_kitchen/view/login/login.dart';
+import 'package:mobile_app_atma_kitchen/view/mo/home/home_mo.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,7 +42,9 @@ class MyApp extends StatelessWidget {
       home: idCustomer!.isEmpty && idKaryawan!.isEmpty
           ? LoginView()
           : role! == "MO"
-              ? MOView()
+              ? MainMOView(
+                  selectedIndex: 0,
+                )
               : HomeView(),
     );
   }

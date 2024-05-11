@@ -1,127 +1,103 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobile_app_atma_kitchen/database/karyawan_client.dart';
 import 'package:mobile_app_atma_kitchen/entity/karyawan.dart';
-import 'package:mobile_app_atma_kitchen/view/login/login.dart';
+import 'package:mobile_app_atma_kitchen/view/mo/home/home_mo.dart';
+import 'package:mobile_app_atma_kitchen/view/mo/presensiKaryawan/presensi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MOView extends StatefulWidget {
-  const MOView({super.key});
+class MainMOView extends StatefulWidget {
+  const MainMOView({super.key, required this.selectedIndex});
+
+  final int? selectedIndex;
 
   @override
-  State<MOView> createState() => _MOViewState();
+  State<MainMOView> createState() => _MainMOViewState();
 }
 
-class _MOViewState extends State<MOView> {
+class _MainMOViewState extends State<MainMOView> {
   Karyawan? dataKaryawan;
   bool isLoading = false;
   bool isLoadingButton = false;
+  int _selectedIndex = 0;
+  static const List<Widget> _widgetOptions = <Widget>[
+    MOView(),
+    PresensiView(),
+  ];
 
-  void getUserData() async {
+  void _onItemTapped(int index) {
+    //* setState berkaitan dengan fungsi untuk menampilkan perubahan kondisi & dalam banyak kasus akan menggunakan ini\
     setState(() {
-      isLoading = true;
+      _selectedIndex = index;
     });
-    // disini juga nanti buat get data karyawan mekanismenya sama aja kayak yang di customer yang di file home.dart di folder customer
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  }
 
-    Karyawan fetchedDataKaryawan =
-        await KaryawanClient.getKaryawanData(prefs.getString('id_karyawan')!);
-
-    setState(() {
-      dataKaryawan = fetchedDataKaryawan;
-      isLoading = false;
-    });
+  void setSelectedIndex(int index) {
+    _selectedIndex = index;
   }
 
   @override
   void initState() {
     super.initState();
-    getUserData();
+    setSelectedIndex(widget.selectedIndex!);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(top: 8.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'MO View',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+      bottomNavigationBar: Container(
+        height: 85,
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(255, 211, 211, 211),
+              blurRadius: 15,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            iconSize: 23,
+            items: const [
+              BottomNavigationBarItem(
+                  icon: FaIcon(
+                    FontAwesomeIcons.house,
+                    key: Key('bottom_navbar_home'),
                   ),
-                ],
-              ),
-              isLoading
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [const CircularProgressIndicator()],
-                    )
-                  : Column(
-                      children: [
-                        Text('Id karyawan : ${dataKaryawan!.idKaryawan}'),
-                        Text('Nama Karyawan : ${dataKaryawan!.namaKaryawan}'),
-                        Text('Email Karyawan : ${dataKaryawan!.emailKaryawan}'),
-                        Text(
-                            'Alamat Karyawan : ${dataKaryawan!.alamatKaryawan}'),
-                        Text('No Telp : ${dataKaryawan!.telpKaryawan}'),
-                        Text('Role : ${dataKaryawan!.role}')
-                      ],
-                    ),
-              ElevatedButton(
-                onPressed: () async {
-                  setState(() {
-                    isLoadingButton = true;
-                  });
-                  final scaffoldMessenger = ScaffoldMessenger.of(context);
-                  pushLogout(context);
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.remove('id_karyawan');
-                  prefs.remove('role');
-                  scaffoldMessenger.showSnackBar(
-                    const SnackBar(
-                      content: Text('Berhasil Logout!'),
-                      duration: Duration(seconds: 5),
-                    ),
-                  );
-                },
-                child: isLoadingButton
-                    ? CircularProgressIndicator()
-                    : Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 3.0, vertical: 2.0),
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ),
-              )
+                  label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: FaIcon(
+                    FontAwesomeIcons.calendarCheck,
+                    key: Key('bottom_navbar_daftar_periksa'),
+                  ),
+                  label: 'Presensi'),
+              // BottomNavigationBarItem(
+              //     icon: FaIcon(
+              //       FontAwesomeIcons.bluetooth,
+              //       key: Key('bottom_navbar_daftar_kamar'),
+              //     ),
+              //     label: 'Nganu'),
+              // BottomNavigationBarItem(
+              //     icon: FaIcon(
+              //       FontAwesomeIcons.car,
+              //       key: Key('bottom_navbar_profile'),
+              //     ),
+              //     label: 'Mobil'),
             ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
           ),
         ),
       ),
-    );
-  }
-
-  void pushLogout(BuildContext context) {
-    FocusManager.instance.primaryFocus!.unfocus();
-
-    Navigator.popUntil(context, (route) => route.isFirst);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const LoginView(),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
 }

@@ -6,7 +6,7 @@ import 'package:mobile_app_atma_kitchen/entity/customer.dart';
 import 'package:mobile_app_atma_kitchen/entity/karyawan.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/home.dart';
 import 'package:mobile_app_atma_kitchen/view/lupa_password.dart';
-import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
+import 'package:mobile_app_atma_kitchen/view/mo/home/home_mo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
