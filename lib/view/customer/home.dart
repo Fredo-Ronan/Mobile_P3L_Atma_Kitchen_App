@@ -22,7 +22,7 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       isLoading = true;
     });
-    
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     try {
@@ -54,70 +54,112 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(top: 8.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'Customer View!',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 411,
+                  height: 75,
+                  color: Color.fromRGBO(12, 57, 235, 0.91),
+                  child: Center(
+                    child: Text(
+                      'Profile Customer',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ],
-              ),
-              isLoading
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [CircularProgressIndicator()],
-                    )
-                  : Column(
-                      children: [
-                        Text('Id customer : ${dataCustomer!.idCustomer}'),
-                        Text('Nama Customer : ${dataCustomer!.namaCustomer}'),
-                        Text('Email Customer : ${dataCustomer!.emailCustomer}'),
-                        Text('Tanggal Lahir : ${dataCustomer!.tanggalLahir}'),
-                        Text('Telepon : ${dataCustomer!.telepon}'),
-                        Text('Saldo : ${dataCustomer!.saldo}'),
-                        Text('Total Poin : ${dataCustomer!.totalPoin}')
-                      ],
-                    ),
-              ElevatedButton(
-                onPressed: () async {
-                  setState(() {
-                    isLoadingButton = true;
-                  });
-                  final scaffoldMessenger = ScaffoldMessenger.of(context);
-                  pushLogout(context);
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.remove('id_customer');
-                  prefs.remove('role');
-                  scaffoldMessenger.showSnackBar(
-                    const SnackBar(
-                      content: Text('Berhasil Logout!'),
-                      duration: Duration(seconds: 5),
-                    ),
-                  );
-                },
-                child: isLoadingButton
-                    ? CircularProgressIndicator()
-                    : Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 3.0, vertical: 2.0),
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
+                ),
+              ],
+            ),
+            isLoading
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [CircularProgressIndicator()],
+                  )
+                : Column(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(bottom: 10, top: 30),
+                          padding: EdgeInsets.all(10),
+                          width: 350,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 198, 198, 198),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Text(
+                            'Nama Customer : ${dataCustomer!.namaCustomer}',
+                            style: TextStyle(fontSize: 14),
+                          )),
+                      Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          padding: EdgeInsets.all(10),
+                          width: 350,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 198, 198, 198),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Text(
+                            'Email Customer : ${dataCustomer!.emailCustomer}',
+                            style: TextStyle(fontSize: 14),
+                          )),
+                      Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          padding: EdgeInsets.all(10),
+                          width: 350,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 198, 198, 198),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Text(
+                            'Tanggal Lahir : ${dataCustomer!.tanggalLahir}',
+                            style: TextStyle(fontSize: 14),
+                          )),
+                      Container(
+                          margin: EdgeInsets.only(
+                            bottom: 50,
+                          ),
+                          padding: EdgeInsets.all(10),
+                          width: 350,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 198, 198, 198),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Text(
+                            'Telepon : ${dataCustomer!.telepon}',
+                            style: TextStyle(fontSize: 14),
+                          )),
+                    ],
+                  ),
+            ElevatedButton(
+              onPressed: () async {
+                setState(() {
+                  isLoadingButton = true;
+                });
+                final scaffoldMessenger = ScaffoldMessenger.of(context);
+                pushLogout(context);
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.remove('id_customer');
+                prefs.remove('role');
+                scaffoldMessenger.showSnackBar(
+                  const SnackBar(
+                    content: Text('Berhasil Logout!'),
+                    duration: Duration(seconds: 5),
+                  ),
+                );
+              },
+              child: isLoadingButton
+                  ? CircularProgressIndicator()
+                  : Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 3.0, vertical: 2.0),
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
-              )
-            ],
-          ),
+                    ),
+            )
+          ],
         ),
       ),
     );

@@ -57,7 +57,7 @@ class _PresensiViewState extends State<PresensiView> {
           children: [
             Container(
               width: 415,
-              height: 75,
+                
               margin: EdgeInsets.only(bottom: 20),
               decoration: BoxDecoration(
                 color: Color.fromRGBO(12, 57, 235, 0.91),
