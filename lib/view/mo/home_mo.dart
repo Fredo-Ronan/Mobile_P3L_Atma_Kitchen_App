@@ -70,13 +70,13 @@ class _MainMOViewState extends State<MainMOView> {
               BottomNavigationBarItem(
                   icon: FaIcon(
                     FontAwesomeIcons.house,
-                    key: Key('bottom_navbar_home'),
+                    key: ValueKey('bottom_navbar_home'),
                   ),
                   label: 'Home'),
               BottomNavigationBarItem(
                   icon: FaIcon(
                     FontAwesomeIcons.calendarCheck,
-                    key: Key('bottom_navbar_daftar_periksa'),
+                    key: ValueKey('bottom_navbar_daftar_periksa'),
                   ),
                   label: 'Presensi'),
               // BottomNavigationBarItem(

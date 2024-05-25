@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/home.dart';
+import 'package:mobile_app_atma_kitchen/view/customer/informasi_umum.dart';
 import 'package:mobile_app_atma_kitchen/view/login/login.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home/home_mo.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
               ? MainMOView(
                   selectedIndex: 0,
                 )
-              : HomeView(),
+              : InformasiUmum(),
     );
   }
 }

@@ -135,7 +135,7 @@ class _DetilPresensiState extends State<DetilPresensi> {
                 margin: EdgeInsets.only(top: 10),
                 child: DropdownMenu<String>(
                   menuHeight: 200,
-                  key: const Key('dropdown_presensi_karyawan'),
+                  key: const ValueKey('dropdown_presensi_karyawan'),
                   controller: presensiController,
                   initialSelection: widget.presensi != null
                       ? widget.presensi!.statusPresensi

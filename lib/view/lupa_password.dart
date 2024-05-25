@@ -58,7 +58,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
                 child: TextFormField(
                   keyboardType: TextInputType.emailAddress,
-                  key: const Key('email'),
+                  key: const ValueKey('email'),
                   controller: emailController,
                   decoration: InputDecoration(
                     labelText: "Masukkan Email Anda",

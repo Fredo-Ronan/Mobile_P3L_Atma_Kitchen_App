@@ -5,6 +5,7 @@ import 'package:mobile_app_atma_kitchen/database/user_client.dart';
 import 'package:mobile_app_atma_kitchen/entity/customer.dart';
 import 'package:mobile_app_atma_kitchen/entity/karyawan.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/home.dart';
+import 'package:mobile_app_atma_kitchen/view/customer/informasi_umum.dart';
 import 'package:mobile_app_atma_kitchen/view/lupa_password.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home/home_mo.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
@@ -88,7 +89,7 @@ class _LoginViewState extends State<LoginView> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: TextFormField(
-                      key: const Key('username'),
+                      key: const ValueKey('username'),
                       controller: usernameController,
                       autofocus: true,
                       validator: (value) {
@@ -144,7 +145,7 @@ class _LoginViewState extends State<LoginView> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: TextFormField(
-                      key: const Key('password'),
+                      key: const ValueKey('password'),
                       controller: passwordController,
                       onChanged: (value) => {
                         setState(() {
@@ -288,11 +289,12 @@ class _LoginViewState extends State<LoginView> {
                                       .toString()); // sementara placeholder
                               prefs.setString('role', 'Customer');
 
-                              navPush(
+                              Navigator.pushReplacement(
+                                context,
                                 MaterialPageRoute(
-                                    builder: (_) => const HomeView()),
+                                  builder: (_) => const InformasiUmum(),
+                                ),
                               );
-
                               scaffoldMessenger.showSnackBar(
                                 const SnackBar(
                                   content: Text('Berhasil Login!'),

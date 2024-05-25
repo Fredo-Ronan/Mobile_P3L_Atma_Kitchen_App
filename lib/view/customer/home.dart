@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_atma_kitchen/database/customer_client.dart';
 import 'package:mobile_app_atma_kitchen/entity/customer.dart';
+import 'package:mobile_app_atma_kitchen/view/customer/informasi_umum.dart';
 import 'package:mobile_app_atma_kitchen/view/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,6 +54,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: _BottomBar(),
       body: SafeArea(
         child: Column(
           children: [
@@ -173,6 +175,69 @@ class _HomeViewState extends State<HomeView> {
       context,
       MaterialPageRoute(
         builder: (_) => const LoginView(),
+      ),
+    );
+  }
+}
+
+class _BottomBar extends StatelessWidget {
+  const _BottomBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      height: 60,
+      color: Colors.blue,
+      shadowColor: Colors.black,
+      shape: const CircularNotchedRectangle(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const InformasiUmum()));
+            },
+            icon: const Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const InformasiUmum()));
+            },
+            icon: const Icon(
+              Icons.cake,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomeView()));
+            },
+            icon: const Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomeView()));
+            },
+            icon: const Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }
