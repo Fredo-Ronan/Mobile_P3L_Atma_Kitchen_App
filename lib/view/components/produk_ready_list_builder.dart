@@ -19,7 +19,7 @@ class ProdukReadyListBuilder extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 10.0,
         mainAxisSpacing: 10.0,
-        childAspectRatio: 0.8,
+        childAspectRatio: 0.7,
       ),
       itemCount: listProdukReady?.length ?? 0,
       itemBuilder: (context, index) {

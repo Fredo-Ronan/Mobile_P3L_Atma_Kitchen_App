@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_app_atma_kitchen/entity/produk.dart';
 
 class ProdukPreOrderItem extends StatelessWidget {
   final Produk? produkPreOrder;
-  const ProdukPreOrderItem({Key? key, required this.produkPreOrder})
+  final NumberFormat numberFormat = NumberFormat.decimalPattern('id');
+  ProdukPreOrderItem({Key? key, required this.produkPreOrder})
       : super(key: key);
 
   @override
@@ -35,7 +37,7 @@ class ProdukPreOrderItem extends StatelessWidget {
             Text('${produkPreOrder?.loyang}'),
             const SizedBox(height: 8),
             Text(
-              'Rp. ${produkPreOrder?.hargaProduk.toString()}', // Providing a default value
+              'Rp. ${numberFormat.format(produkPreOrder?.hargaProduk)}', // Providing a default value
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 8),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_app_atma_kitchen/entity/produk.dart';
 
 class ProdukReadyItem extends StatelessWidget {
   final Produk? produkReady;
-  const ProdukReadyItem({Key? key, required this.produkReady})
-      : super(key: key);
+  final NumberFormat numberFormat = NumberFormat.decimalPattern('id');
+  ProdukReadyItem({Key? key, required this.produkReady}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class ProdukReadyItem extends StatelessWidget {
                     height: 100, child: Center(child: Text('No Image'))),
             const SizedBox(height: 8),
             Text(
-              'Rp. ${produkReady?.hargaProduk.toString()}', // Providing a default value
+              'Rp. ${numberFormat.format(produkReady?.hargaProduk)}', // Providing a default value
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 8),
