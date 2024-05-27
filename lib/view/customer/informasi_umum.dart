@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_atma_kitchen/database/customer_client.dart';
 import 'package:mobile_app_atma_kitchen/entity/customer.dart';
+import 'package:mobile_app_atma_kitchen/view/customer/hampers_page.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/home.dart';
+import 'package:mobile_app_atma_kitchen/view/customer/preorder_page.dart';
+import 'package:mobile_app_atma_kitchen/view/customer/produk_ready_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InformasiUmum extends StatefulWidget {
@@ -134,71 +137,101 @@ class _InformasiUmumState extends State<InformasiUmum> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  Container(
+                  SizedBox(
                     height: 380,
                     child: (GridView.count(
                       crossAxisSpacing: 20.0,
                       mainAxisSpacing: 20.0,
                       crossAxisCount: 2,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: const Column(
-                            children: [
-                              Image(
-                                image: AssetImage('assets/images/cake-3.jpg'),
-                                height: 135,
-                              ),
-                              Text(
-                                'Hampers',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            // Go to Hampers Page
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HampersPage(),
+                                ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: const Column(
+                              children: [
+                                Image(
+                                  image: AssetImage('assets/images/cake-3.jpg'),
+                                  height: 135,
+                                ),
+                                Text(
+                                  'Hampers',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: const Column(
-                            children: [
-                              Image(
-                                image: AssetImage('assets/images/cake-2.jpg'),
-                                height: 135,
-                              ),
-                              Text(
-                                'Preorder',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            // Go to Pre order page
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const PreOrderPage(),
+                                ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: const Column(
+                              children: [
+                                Image(
+                                  image: AssetImage('assets/images/cake-2.jpg'),
+                                  height: 135,
+                                ),
+                                Text(
+                                  'Preorder',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(10.0)),
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: const Column(
-                            children: [
-                              Image(
-                                image: AssetImage('assets/images/cake-4.jpg'),
-                                height: 135,
-                              ),
-                              Text(
-                                'Ready Stock',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            // Go to Ready Stock page
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ProdukReadyPage(),
+                                ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10.0)),
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: const Column(
+                              children: [
+                                Image(
+                                  image: AssetImage('assets/images/cake-4.jpg'),
+                                  height: 135,
+                                ),
+                                Text(
+                                  'Ready Stock',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Container(

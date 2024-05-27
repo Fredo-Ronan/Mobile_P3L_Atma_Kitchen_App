@@ -2,11 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mobile_app_atma_kitchen/database/karyawan_client.dart';
 import 'package:mobile_app_atma_kitchen/entity/karyawan.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home/home_mo.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/presensiKaryawan/presensi.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MainMOView extends StatefulWidget {
   const MainMOView({super.key, required this.selectedIndex});

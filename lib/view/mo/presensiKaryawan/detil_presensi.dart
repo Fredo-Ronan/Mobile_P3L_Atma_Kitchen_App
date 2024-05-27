@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app_atma_kitchen/database/presensi_karyawan_client.dart';
 import 'package:mobile_app_atma_kitchen/entity/presensi_karyawan.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
-import 'package:mobile_app_atma_kitchen/view/mo/presensiKaryawan/presensi.dart';
 
 class DetilPresensi extends StatefulWidget {
   final Presensi presensi;
