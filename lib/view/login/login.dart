@@ -7,6 +7,7 @@ import 'package:mobile_app_atma_kitchen/entity/karyawan.dart';
 import 'package:mobile_app_atma_kitchen/view/customer/informasi_umum.dart';
 import 'package:mobile_app_atma_kitchen/view/lupa_password.dart';
 import 'package:mobile_app_atma_kitchen/view/mo/home_mo.dart';
+import 'package:mobile_app_atma_kitchen/view/owner/home_owner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -293,6 +294,34 @@ class _LoginViewState extends State<LoginView> {
                                   builder: (_) => const InformasiUmum(),
                                 ),
                               );
+                              scaffoldMessenger.showSnackBar(
+                                const SnackBar(
+                                  content: Text('Berhasil Login!'),
+                                  duration: Duration(seconds: 5),
+                                ),
+                              );
+                            } else if (jsonDecode(responseLogin)["role"] ==
+                                    "Owner" &&
+                                jsonDecode(responseLogin)["status"] == "OK") {
+                              // user yang login adalah Owner
+                              Karyawan owner = Karyawan.fromJson(
+                                  jsonDecode(responseLogin)["data"]);
+
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString(
+                                  'id_karyawan',
+                                  owner.idKaryawan
+                                      .toString()); // sementara placeholder
+                              prefs.setString('role', 'Owner');
+
+                              navPush(
+                                MaterialPageRoute(
+                                    builder: (_) => const MainOwnerView(
+                                          selectedIndex: 0,
+                                        )),
+                              );
+
                               scaffoldMessenger.showSnackBar(
                                 const SnackBar(
                                   content: Text('Berhasil Login!'),

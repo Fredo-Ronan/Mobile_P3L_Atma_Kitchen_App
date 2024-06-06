@@ -3,27 +3,25 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobile_app_atma_kitchen/entity/karyawan.dart';
-import 'package:mobile_app_atma_kitchen/view/mo/home/home_mo.dart';
-import 'package:mobile_app_atma_kitchen/view/mo/laporan/laporan.dart';
-import 'package:mobile_app_atma_kitchen/view/mo/presensiKaryawan/presensi.dart';
+import 'package:mobile_app_atma_kitchen/view/owner/laporan/laporan.dart';
+import 'package:mobile_app_atma_kitchen/view/owner/home/home_owner.dart';
 
-class MainMOView extends StatefulWidget {
-  const MainMOView({super.key, required this.selectedIndex});
+class MainOwnerView extends StatefulWidget {
+  const MainOwnerView({super.key, required this.selectedIndex});
 
   final int? selectedIndex;
 
   @override
-  State<MainMOView> createState() => _MainMOViewState();
+  State<MainOwnerView> createState() => _MainOwnerViewState();
 }
 
-class _MainMOViewState extends State<MainMOView> {
+class _MainOwnerViewState extends State<MainOwnerView> {
   Karyawan? dataKaryawan;
   bool isLoading = false;
   bool isLoadingButton = false;
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    MOView(),
-    PresensiView(),
+    OwnerView(),
     LaporanMO(),
   ];
 
@@ -73,12 +71,6 @@ class _MainMOViewState extends State<MainMOView> {
                     key: ValueKey('bottom_navbar_home'),
                   ),
                   label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: FaIcon(
-                    FontAwesomeIcons.calendarCheck,
-                    key: ValueKey('bottom_navbar_daftar_periksa'),
-                  ),
-                  label: 'Presensi'),
               BottomNavigationBarItem(
                   icon: FaIcon(
                     FontAwesomeIcons.book,
